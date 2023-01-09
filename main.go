@@ -3,6 +3,7 @@ package main
 import (
 	"GIN_GORM/controller"
 	"GIN_GORM/internal"
+	"GIN_GORM/repository"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,15 +11,14 @@ import (
 func init() {
 	internal.LoadEnv()
 	internal.ConnectToDb()
+	repository.InitRepositories(internal.DB)
 }
 
 func main() {
 	r := gin.Default()
-	r.POST("/posts", controller.Create)
-	r.GET("/posts/list", controller.List)
-	r.GET("/posts/:id", controller.FindOne)
-	r.PUT("/posts/:id", controller.Update)
-	r.DELETE("/posts/:id", controller.Delete)
-	r.Run()
 
+	repos := repository.InitRepositories(internal.DB)
+	controllers := controller.InitControllers((repos))
+	controller.Schema(r, controllers)
+	r.Run()
 }
