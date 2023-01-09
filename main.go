@@ -14,7 +14,6 @@ func init() {
 
 func main() {
 	r := gin.Default()
-	r.han
 	r.POST("/posts", controller.Create)
 	r.GET("/posts/list", controller.List)
 	r.GET("/posts/:id", controller.FindOne)

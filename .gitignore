@@ -1,3 +1,5 @@
 go.mod
 .env
 go.sum
+GIN_GORM.exe~
+GIN_GORM.exe
